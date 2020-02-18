@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.960
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PererraC", "PererraC\PererraC.csproj", "{CA8C8378-8D5B-4E4A-A70F-EECC3D9D7CD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PererraC.Tests", "PererraC.Tests\PererraC.Tests.csproj", "{F5948A4F-DC54-43DB-B69F-E714FEAF4B12}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA8C8378-8D5B-4E4A-A70F-EECC3D9D7CD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA8C8378-8D5B-4E4A-A70F-EECC3D9D7CD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA8C8378-8D5B-4E4A-A70F-EECC3D9D7CD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA8C8378-8D5B-4E4A-A70F-EECC3D9D7CD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5948A4F-DC54-43DB-B69F-E714FEAF4B12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5948A4F-DC54-43DB-B69F-E714FEAF4B12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5948A4F-DC54-43DB-B69F-E714FEAF4B12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5948A4F-DC54-43DB-B69F-E714FEAF4B12}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {007772F8-EACD-4D1C-8A78-96CF9044489B}
+	EndGlobalSection
+EndGlobal
