@@ -10,6 +10,6 @@ namespace PererraC.Models
         public int Id { get; set; }
         public string NombreJaula { get; set; }
 
-        public virtual ICollection<Perros> Perros { get; set; }
+        public virtual ICollection<Perro> Perros { get; set; }
     }
 }
