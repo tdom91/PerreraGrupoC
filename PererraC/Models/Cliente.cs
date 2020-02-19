@@ -11,9 +11,9 @@ namespace PererraC.Models
         public string NombreCompleto { get; set; }
         public string Telefono { get; set; }
         public string Correo { get; set; }
-        public string DNI { get; set} }
+        public string DNI { get; set; } 
 
-        public virtual ICollection<Adopciones> Adopciones { get; set; }
+        public virtual ICollection<Adopcion> Adopciones { get; set; }
 
      }
 }
