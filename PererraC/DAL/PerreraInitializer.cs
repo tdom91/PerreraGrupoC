@@ -37,6 +37,24 @@ namespace PererraC.DAL
             };
            listaEmpleados.ForEach(s => context.Empleados.Add(s));
             context.SaveChanges();
+
+            var listaJaulas = new List<Jaulas>
+            {
+                new Jaulas{Id=1, NombreJaula= "Jaula Pequeña"},
+                new Jaulas{Id=2, NombreJaula= "Jaula Grande"}
+            };
+            listaJaulas.ForEach(s => context.Jaulas.Add(s));
+            context.SaveChanges();
+
+            var listaRazas = new List<Razas>
+            {
+            new Razas{Id=1,Nombre= "Doberman"},
+            new Razas{Id=2, Nombre= "Chiguagua"},
+            new Razas{Id=3, Nombre= "Boxer"},
+            };
+            listaRazas.ForEach(s => context.Razas.Add(s));
+            context.SaveChanges();
+
             var listaPerros = new List<Perros>
             {
             new Perros{Nombre= "Dumbo",Chip= "1050JUTE",FechaNacimiento= DateTime.Parse("2006-04-11"),IdJaula = 1, CodRazaId = 1},
@@ -51,29 +69,6 @@ namespace PererraC.DAL
             };
             listaPerros.ForEach(s => context.Perros.Add(s));
             context.SaveChanges();
-
-            var listaRazas = new List<Razas>
-            {
-            new Razas{Nombre= "Doberman"},
-            new Razas{Nombre= "Chiguagua"},
-            new Razas{Nombre= "Boxer"},
-
-
-            };
-            listaRazas.ForEach(s => context.Razas.Add(s));
-            context.SaveChanges();
-
-            var listaJaulas = new List<Jaulas>
-            {
-                new Jaulas{NombreJaula= "Jaula Pequeña"},
-                new Jaulas{NombreJaula= "Jaula Grande"}
-                
-
-
-            };
-            listaJaulas.ForEach(s => context.Jaulas.Add(s));
-            context.SaveChanges();
-
 
             var listaAdopciones = new List<Adopciones>
             {
