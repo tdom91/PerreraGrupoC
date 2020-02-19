@@ -26,7 +26,7 @@ namespace PererraC.DAL
             context.SaveChanges();
             var listaEmpleados = new List<Empleados>
             {
-                new Empleados{NombreCompleto="Gimena",Telefono="621007456",Correo="mila@gmail.com", DNI = "12345678A"},
+                new Empleados{NombreCompleto= "Gimena",Telefono="621007456",Correo="mila@gmail.com", DNI = "12345678A"},
                 new Empleados{NombreCompleto="Paco",Telefono="621007456",Correo="mila@gmail.com", DNI = "12345678A"},
                 new Empleados{NombreCompleto="Runa",Telefono="621007456",Correo="mila@gmail.com", DNI = "12345678A"},
                 new Empleados{NombreCompleto="harvey",Telefono="621007456",Correo="mila@gmail.com", DNI = "12345678A"},

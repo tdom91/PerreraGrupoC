@@ -8,17 +8,17 @@ namespace PererraC.Models
 {
     public class Empleados
     {
-        private int Id { get; set; }
+        public int Id { get; set; }
 
-        private string NombreCompleto{ get; set; }
+        public string NombreCompleto{ get; set; }
 
-        private string Telefono { get; set; }
+        public string Telefono { get; set; }
 
-        private string Correo { get; set; }
+        public string Correo { get; set; }
             
-        private string DNI { get; set; }
+        public string DNI { get; set; }
         
-        public virtual ICollection<Adopcion> Adopciones { get; set; }
+        public virtual ICollection<Adopciones> Adopciones { get; set; }
 
     }
 }
