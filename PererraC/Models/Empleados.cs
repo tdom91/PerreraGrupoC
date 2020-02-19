@@ -5,7 +5,7 @@ using System.Web;
 
 namespace PererraC.Models
 {
-    public class Empleado
+    public class Empleados
     {
     }
 }

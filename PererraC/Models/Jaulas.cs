@@ -5,11 +5,11 @@ using System.Web;
 
 namespace PererraC.Models
 {
-    public class Raza
+    public class Jaulas
     {
         public int Id { get; set; }
-        public string Nombre { get; set; }
+        public string NombreJaula { get; set; }
 
-        public virtual ICollection<Perro> Perros { get; set; }
+        public virtual ICollection<Perros> Perros { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace PererraC.Models
 {
-    public class Perro
+    public class Perros
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
@@ -15,8 +15,8 @@ namespace PererraC.Models
         public Nullable<int> IdJaula { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Adopcion> Adopciones { get; set; }
-        public virtual Jaula Jaulas { get; set; }
-        public virtual Raza Razas { get; set; }
+        public virtual ICollection<Adopciones> Adopciones { get; set; }
+        public virtual Jaulas Jaulas { get; set; }
+        public virtual Razas Razas { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace PererraC.Models
 {
-    public class Adopcion
+    public class Adopciones
     {
 
         public int PerroId { get; set; }
@@ -13,8 +13,8 @@ namespace PererraC.Models
         public int EmpleadoId { get; set; }
         public System.DateTime FechaEntrega { get; set; }
 
-        public virtual Cliente Clientes { get; set; }
-        public virtual Empleado Empleados { get; set; }
-        public virtual Perro Perros { get; set; }
+        public virtual Clientes Clientes { get; set; }
+        public virtual Empleados Empleados { get; set; }
+        public virtual Perros Perros { get; set; }
     }
 }
