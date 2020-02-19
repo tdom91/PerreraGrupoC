@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PererraC.Services.Repository
 {
-    interface IAdopcionRepository : IGenericRepository<Adopcion>
+    interface IAdopcionRepository : IGenericRepository<Adopciones>
     {
     }
 }
