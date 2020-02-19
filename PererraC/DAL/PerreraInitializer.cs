@@ -72,11 +72,11 @@ namespace PererraC.DAL
 
             var listaAdopciones = new List<Adopciones>
             {
-                new Adopciones{PerroId= 1, ClienteId = 1, EmpleadoId = 1, FechaEntrega =DateTime.Parse("2019-06-11") },
-                new Adopciones{PerroId= 2, ClienteId = 2, EmpleadoId = 2, FechaEntrega =DateTime.Parse("2020-06-12") },
-                new Adopciones{PerroId= 3, ClienteId = 3, EmpleadoId = 3, FechaEntrega =DateTime.Parse("2016-08-09") },
-                new Adopciones{PerroId= 4, ClienteId = 5, EmpleadoId = 4, FechaEntrega =DateTime.Parse("2019-10-07") },
-                new Adopciones{PerroId= 5, ClienteId = 6, EmpleadoId = 5, FechaEntrega =DateTime.Parse("2020-11-11") },
+                new Adopciones{Id = 1, PerroId= 1, ClienteId = 1, EmpleadoId = 1, FechaEntrega =DateTime.Parse("2019-06-11") },
+                new Adopciones{Id = 2, PerroId= 2, ClienteId = 2, EmpleadoId = 2, FechaEntrega =DateTime.Parse("2020-06-12") },
+                new Adopciones{Id = 3, PerroId= 3, ClienteId = 3, EmpleadoId = 3, FechaEntrega =DateTime.Parse("2016-08-09") },
+                new Adopciones{Id = 4, PerroId= 4, ClienteId = 5, EmpleadoId = 4, FechaEntrega =DateTime.Parse("2019-10-07") },
+                new Adopciones{Id = 5, PerroId= 5, ClienteId = 6, EmpleadoId = 5, FechaEntrega =DateTime.Parse("2020-11-11") },
 
             };
             listaAdopciones.ForEach(s => context.Adopciones.Add(s));

@@ -10,16 +10,15 @@ namespace PererraC.Models
     public class Adopciones
     {
         [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Id { get; set; }
+        [Key]
+        [ForeignKey("Perros")]
         public int PerroId { get; set; }
         [Key]
-        [Column(Order=2)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [ForeignKey("Clientes")]
         public int ClienteId { get; set; }
         [Key]
-        [Column(Order = 3)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [ForeignKey("Empleados")]
         public int EmpleadoId { get; set; }
         public System.DateTime FechaEntrega { get; set; }
         

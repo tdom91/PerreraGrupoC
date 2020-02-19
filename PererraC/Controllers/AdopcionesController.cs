@@ -19,7 +19,8 @@ namespace PererraC.Controllers
         // GET: Adopciones
         public async Task<ActionResult> Index()
         {
-            return View(await db.Adopciones.ToListAsync());
+            var adopciones = db.Adopciones.Include(a => a.Clientes).Include(a => a.Empleados).Include(a => a.Perros);
+            return View(await adopciones.ToListAsync());
         }
 
         // GET: Adopciones/Details/5
@@ -40,6 +41,9 @@ namespace PererraC.Controllers
         // GET: Adopciones/Create
         public ActionResult Create()
         {
+            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "NombreCompleto");
+            ViewBag.EmpleadoId = new SelectList(db.Empleados, "Id", "NombreCompleto");
+            ViewBag.PerroId = new SelectList(db.Perros, "Id", "Nombre");
             return View();
         }
 
@@ -48,7 +52,7 @@ namespace PererraC.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "PerroId,ClienteId,EmpleadoId,FechaEntrega")] Adopciones adopciones)
+        public async Task<ActionResult> Create([Bind(Include = "Id,PerroId,ClienteId,EmpleadoId,FechaEntrega")] Adopciones adopciones)
         {
             if (ModelState.IsValid)
             {
@@ -57,6 +61,9 @@ namespace PererraC.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "NombreCompleto", adopciones.ClienteId);
+            ViewBag.EmpleadoId = new SelectList(db.Empleados, "Id", "NombreCompleto", adopciones.EmpleadoId);
+            ViewBag.PerroId = new SelectList(db.Perros, "Id", "Nombre", adopciones.PerroId);
             return View(adopciones);
         }
 
@@ -72,6 +79,9 @@ namespace PererraC.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "NombreCompleto", adopciones.ClienteId);
+            ViewBag.EmpleadoId = new SelectList(db.Empleados, "Id", "NombreCompleto", adopciones.EmpleadoId);
+            ViewBag.PerroId = new SelectList(db.Perros, "Id", "Nombre", adopciones.PerroId);
             return View(adopciones);
         }
 
@@ -80,7 +90,7 @@ namespace PererraC.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "PerroId,ClienteId,EmpleadoId,FechaEntrega")] Adopciones adopciones)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,PerroId,ClienteId,EmpleadoId,FechaEntrega")] Adopciones adopciones)
         {
             if (ModelState.IsValid)
             {
@@ -88,6 +98,9 @@ namespace PererraC.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "NombreCompleto", adopciones.ClienteId);
+            ViewBag.EmpleadoId = new SelectList(db.Empleados, "Id", "NombreCompleto", adopciones.EmpleadoId);
+            ViewBag.PerroId = new SelectList(db.Perros, "Id", "Nombre", adopciones.PerroId);
             return View(adopciones);
         }
 
