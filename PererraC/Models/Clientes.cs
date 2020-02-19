@@ -5,7 +5,7 @@ using System.Web;
 
 namespace PererraC.Models
 {
-    public class Cliente
+    public class Clientes
     {
         public int Id { get; set; }
         public string NombreCompleto { get; set; }
@@ -13,7 +13,7 @@ namespace PererraC.Models
         public string Correo { get; set; }
         public string DNI { get; set; } 
 
-        public virtual ICollection<Adopcion> Adopciones { get; set; }
+        public virtual ICollection<Adopciones> Adopciones { get; set; }
 
      }
 }
