@@ -2,7 +2,7 @@
 
 namespace PererraC.Models
 {
-    public class Clientes
+    public class Clientes : IEntity
     {
         public int Id { get; set; }
         public string NombreCompleto { get; set; }

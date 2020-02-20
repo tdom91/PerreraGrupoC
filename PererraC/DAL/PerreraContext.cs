@@ -8,7 +8,7 @@ using System.Web;
 
 namespace PererraC.DAL
 {
-    public class PerreraContext:DbContext
+    public class PerreraContext : DbContext
     {
         public PerreraContext() : base("PerreraContext")
         { }

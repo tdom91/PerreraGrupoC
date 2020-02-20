@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PererraC.Models
 {
-    public class Perros
+    public class Perros: IEntity
     {
         public int Id { get; set; }
         public string Nombre { get; set; }

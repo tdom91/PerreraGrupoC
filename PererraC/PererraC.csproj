@@ -130,6 +130,7 @@
     <Compile Include="Controllers\AdopcionesController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\EmpleadosController.cs" />
+    <Compile Include="Controllers\GenericBaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JaulasController.cs" />
     <Compile Include="Controllers\PerrosController.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Models\Adopciones.cs" />
     <Compile Include="Models\Clientes.cs" />
     <Compile Include="Models\Empleados.cs" />
+    <Compile Include="Models\IEntity.cs" />
     <Compile Include="Models\Jaulas.cs" />
     <Compile Include="Models\Perros.cs" />
     <Compile Include="Models\Razas.cs" />
