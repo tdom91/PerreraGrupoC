@@ -41,9 +41,9 @@
             @Html.DisplayFor(modelItem => item.FechaEntrega)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { item.PerroId, item.EmpleadoId, item.ClienteId }) |
-            @Html.ActionLink("Details", "Details", new { item.PerroId, item.EmpleadoId, item.ClienteId }) |
-            @Html.ActionLink("Delete", "Delete", new { item.PerroId, item.EmpleadoId, item.ClienteId })
+            @Html.ActionLink("Edit", "Edit", new {  id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new {  id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new {  id=item.Id })
         </td>
     </tr>
 }

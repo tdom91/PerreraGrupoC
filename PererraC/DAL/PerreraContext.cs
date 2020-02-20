@@ -22,6 +22,7 @@ namespace PererraC.DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Adopciones>().HasKey(c => c.Id);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Entity<Adopciones>().HasKey(l => new { l.PerroId, l.ClienteId, l.EmpleadoId });
         }

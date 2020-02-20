@@ -50,7 +50,7 @@ namespace PererraC.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "PerroId,ClienteId,EmpleadoId,FechaEntrega")] Adopciones adopciones)
+        public async Task<ActionResult> Create([Bind(Include = "Id,PerroId,ClienteId,EmpleadoId,FechaEntrega")] Adopciones adopciones)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace PererraC.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "PerroId,ClienteId,EmpleadoId,FechaEntrega")] Adopciones adopciones)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,PerroId,ClienteId,EmpleadoId,FechaEntrega")] Adopciones adopciones)
         {
             if (ModelState.IsValid)
             {
