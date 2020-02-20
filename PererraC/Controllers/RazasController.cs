@@ -9,17 +9,28 @@ using System.Web;
 using System.Web.Mvc;
 using PererraC.DAL;
 using PererraC.Models;
+using PererraC.Services.Repository;
+using PererraC.Services.Repository.RazasRepository;
 
 namespace PererraC.Controllers
 {
     public class RazasController : Controller
     {
-        private PerreraContext db = new PerreraContext();
+        private IRazasRepository repositorio = null;
+        public RazasController()
+        {
+            this.repositorio = new RazasRepository();
+        }
+
+        public RazasController(IRazasRepository repositorio)
+        {
+            this.repositorio = repositorio;
+        }
 
         // GET: Razas
         public async Task<ActionResult> Index()
         {
-            return View(await db.Razas.ToListAsync());
+            return View(await repositorio.GetAll());
         }
 
         // GET: Razas/Details/5
@@ -29,7 +40,7 @@ namespace PererraC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Razas razas = await db.Razas.FindAsync(id);
+            var razas = await repositorio.GetById(id);
             if (razas == null)
             {
                 return HttpNotFound();
@@ -52,8 +63,8 @@ namespace PererraC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Razas.Add(razas);
-                await db.SaveChangesAsync();
+                repositorio.Insert(razas);
+                await repositorio.Save();
                 return RedirectToAction("Index");
             }
 
@@ -67,7 +78,7 @@ namespace PererraC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Razas razas = await db.Razas.FindAsync(id);
+            var razas = await repositorio.GetById(id);
             if (razas == null)
             {
                 return HttpNotFound();
@@ -84,8 +95,8 @@ namespace PererraC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(razas).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                repositorio.Update(razas);
+                await repositorio.Save();
                 return RedirectToAction("Index");
             }
             return View(razas);
@@ -98,7 +109,7 @@ namespace PererraC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Razas razas = await db.Razas.FindAsync(id);
+            var razas = await repositorio.GetById(id);
             if (razas == null)
             {
                 return HttpNotFound();
@@ -111,19 +122,18 @@ namespace PererraC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Razas razas = await db.Razas.FindAsync(id);
-            db.Razas.Remove(razas);
-            await db.SaveChangesAsync();
+            await repositorio.Delete(id);
+            await repositorio.Save();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

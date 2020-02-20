@@ -9,17 +9,28 @@ using System.Web;
 using System.Web.Mvc;
 using PererraC.DAL;
 using PererraC.Models;
+using PererraC.Services.Repository;
+using PererraC.Services.Repository.EmpleadosRepository;
 
 namespace PererraC.Controllers
 {
     public class EmpleadosController : Controller
     {
-        private PerreraContext db = new PerreraContext();
+        private IEmpleadosRepository repositorio = null;
+        public EmpleadosController()
+        {
+            this.repositorio = new EmpleadosRepository();
+        }
+
+        public EmpleadosController(IEmpleadosRepository repositorio)
+        {
+            this.repositorio = repositorio;
+        }
 
         // GET: Empleados
         public async Task<ActionResult> Index()
         {
-            return View(await db.Empleados.ToListAsync());
+            return View(await repositorio.GetAll());
         }
 
         // GET: Empleados/Details/5
@@ -29,7 +40,7 @@ namespace PererraC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Empleados empleados = await db.Empleados.FindAsync(id);
+            Empleados empleados = await repositorio.GetById(id);
             if (empleados == null)
             {
                 return HttpNotFound();
@@ -52,8 +63,8 @@ namespace PererraC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Empleados.Add(empleados);
-                await db.SaveChangesAsync();
+                repositorio.Insert(empleados);
+                await repositorio.Save();
                 return RedirectToAction("Index");
             }
 
@@ -67,7 +78,7 @@ namespace PererraC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Empleados empleados = await db.Empleados.FindAsync(id);
+            var empleados = await repositorio.GetById(id);
             if (empleados == null)
             {
                 return HttpNotFound();
@@ -84,8 +95,8 @@ namespace PererraC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(empleados).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                repositorio.Update(empleados);
+                await repositorio.Save();
                 return RedirectToAction("Index");
             }
             return View(empleados);
@@ -98,7 +109,7 @@ namespace PererraC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Empleados empleados = await db.Empleados.FindAsync(id);
+            var empleados = await repositorio.GetById(id);
             if (empleados == null)
             {
                 return HttpNotFound();
@@ -111,19 +122,18 @@ namespace PererraC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Empleados empleados = await db.Empleados.FindAsync(id);
-            db.Empleados.Remove(empleados);
-            await db.SaveChangesAsync();
+            await repositorio.Delete(id);
+            await repositorio.Save();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

@@ -9,17 +9,27 @@ using System.Web;
 using System.Web.Mvc;
 using PererraC.DAL;
 using PererraC.Models;
+using PererraC.Services.Repository;
 
 namespace PererraC.Controllers
 {
     public class PerrosController : Controller
     {
-        private PerreraContext db = new PerreraContext();
+        private IPerrosRepository repositorio = null;
+        public PerrosController()
+        {
+            this.repositorio = new PerrosRepository();
+        }
+
+        public PerrosController(IPerrosRepository repositorio)
+        {
+            this.repositorio = repositorio;
+        }
 
         // GET: Perros
         public async Task<ActionResult> Index()
         {
-            var perros = db.Perros.Include(p => p.Jaulas).Include(p => p.Razas);
+            var perros = repositorio.Incluye();
             return View(await perros.ToListAsync());
         }
 
@@ -30,7 +40,7 @@ namespace PererraC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Perros perros = await db.Perros.FindAsync(id);
+            Perros perros = await repositorio.GetById(id);
             if (perros == null)
             {
                 return HttpNotFound();
@@ -41,8 +51,8 @@ namespace PererraC.Controllers
         // GET: Perros/Create
         public ActionResult Create()
         {
-            ViewBag.IdJaula = new SelectList(db.Jaulas, "Id", "NombreJaula");
-            ViewBag.CodRazaId = new SelectList(db.Razas, "Id", "Nombre");
+            ViewBag.IdJaula = new SelectList(repositorio.ListaJaulas(), "Id", "NombreJaula");
+            ViewBag.CodRazaId = new SelectList(repositorio.ListaRazas(), "Id", "Nombre");
             return View();
         }
 
@@ -55,13 +65,13 @@ namespace PererraC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Perros.Add(perros);
-                await db.SaveChangesAsync();
+                repositorio.Insert(perros);
+                await repositorio.Save();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IdJaula = new SelectList(db.Jaulas, "Id", "NombreJaula", perros.IdJaula);
-            ViewBag.CodRazaId = new SelectList(db.Razas, "Id", "Nombre", perros.CodRazaId);
+            ViewBag.IdJaula = new SelectList(repositorio.ListaJaulas(), "Id", "NombreJaula", perros.IdJaula);
+            ViewBag.CodRazaId = new SelectList(repositorio.ListaRazas(), "Id", "Nombre", perros.CodRazaId);
             return View(perros);
         }
 
@@ -72,13 +82,13 @@ namespace PererraC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Perros perros = await db.Perros.FindAsync(id);
+            Perros perros = await repositorio.GetById(id);
             if (perros == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.IdJaula = new SelectList(db.Jaulas, "Id", "NombreJaula", perros.IdJaula);
-            ViewBag.CodRazaId = new SelectList(db.Razas, "Id", "Nombre", perros.CodRazaId);
+            ViewBag.IdJaula = new SelectList(repositorio.ListaJaulas(), "Id", "NombreJaula", perros.IdJaula);
+            ViewBag.CodRazaId = new SelectList(repositorio.ListaRazas(), "Id", "Nombre", perros.CodRazaId);
             return View(perros);
         }
 
@@ -91,12 +101,12 @@ namespace PererraC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(perros).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                repositorio.Update(perros);
+                await repositorio.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.IdJaula = new SelectList(db.Jaulas, "Id", "NombreJaula", perros.IdJaula);
-            ViewBag.CodRazaId = new SelectList(db.Razas, "Id", "Nombre", perros.CodRazaId);
+            ViewBag.IdJaula = new SelectList(repositorio.ListaJaulas(), "Id", "NombreJaula", perros.IdJaula);
+            ViewBag.CodRazaId = new SelectList(repositorio.ListaRazas(), "Id", "Nombre", perros.CodRazaId);
             return View(perros);
         }
 
@@ -107,7 +117,7 @@ namespace PererraC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Perros perros = await db.Perros.FindAsync(id);
+            Perros perros = await repositorio.GetById(id);
             if (perros == null)
             {
                 return HttpNotFound();
@@ -120,19 +130,19 @@ namespace PererraC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Perros perros = await db.Perros.FindAsync(id);
-            db.Perros.Remove(perros);
-            await db.SaveChangesAsync();
+            //Perros perros = await repositorio.GetById(id);
+            await repositorio.Delete(id);
+            await repositorio.Save();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }
