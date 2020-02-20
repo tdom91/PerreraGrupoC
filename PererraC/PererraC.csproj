@@ -146,14 +146,20 @@
     <Compile Include="Models\Perros.cs" />
     <Compile Include="Models\Razas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Repository\AdopcionesRepository.cs" />
-    <Compile Include="Services\Repository\ClientesRepository.cs" />
+    <Compile Include="Services\Repository\AdopcionesRepository\AdopcionesRepository.cs" />
+    <Compile Include="Services\Repository\ClientesRepository\ClientesRepository.cs" />
+    <Compile Include="Services\Repository\EmpleadosRepository\EmpleadosRepository.cs" />
+    <Compile Include="Services\Repository\EmpleadosRepository\IEmpleadosRepository.cs" />
     <Compile Include="Services\Repository\GenericRepository.cs" />
-    <Compile Include="Services\Repository\IAdopcionesRepository.cs" />
-    <Compile Include="Services\Repository\IClientesRepository.cs" />
+    <Compile Include="Services\Repository\AdopcionesRepository\IAdopcionesRepository.cs" />
+    <Compile Include="Services\Repository\ClientesRepository\IClientesRepository.cs" />
     <Compile Include="Services\Repository\IGenericRepository.cs" />
-    <Compile Include="Services\Repository\IPerrosRepository.cs" />
-    <Compile Include="Services\Repository\PerrosRepository.cs" />
+    <Compile Include="Services\Repository\JaulasRepository\IJaulasRepository.cs" />
+    <Compile Include="Services\Repository\JaulasRepository\JaulasRepository.cs" />
+    <Compile Include="Services\Repository\PerrosRepository\IPerrosRepository.cs" />
+    <Compile Include="Services\Repository\RazasRepository\IRazasRepository.cs" />
+    <Compile Include="Services\Repository\PerrosRepository\PerrosRepository.cs" />
+    <Compile Include="Services\Repository\RazasRepository\RazasRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

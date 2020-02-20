@@ -9,17 +9,28 @@ using System.Web;
 using System.Web.Mvc;
 using PererraC.DAL;
 using PererraC.Models;
+using PererraC.Services.Repository;
+using PererraC.Services.Repository.JaulasRepository;
 
 namespace PererraC.Controllers
 {
     public class JaulasController : Controller
     {
-        private PerreraContext db = new PerreraContext();
+        private IJaulasRepository repositorio = null;
+        public JaulasController()
+        {
+            this.repositorio = new JaulasRepository();
+        }
+
+        public JaulasController(IJaulasRepository repositorio)
+        {
+            this.repositorio = repositorio;
+        }
 
         // GET: Jaulas
         public async Task<ActionResult> Index()
         {
-            return View(await db.Jaulas.ToListAsync());
+            return View(await repositorio.GetAll());
         }
 
         // GET: Jaulas/Details/5
@@ -29,7 +40,7 @@ namespace PererraC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Jaulas jaulas = await db.Jaulas.FindAsync(id);
+            var jaulas = await repositorio.GetById(id);
             if (jaulas == null)
             {
                 return HttpNotFound();
@@ -52,8 +63,8 @@ namespace PererraC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Jaulas.Add(jaulas);
-                await db.SaveChangesAsync();
+                repositorio.Insert(jaulas);
+                await repositorio.Save();
                 return RedirectToAction("Index");
             }
 
@@ -67,7 +78,7 @@ namespace PererraC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Jaulas jaulas = await db.Jaulas.FindAsync(id);
+            var jaulas = await repositorio.GetById(id);
             if (jaulas == null)
             {
                 return HttpNotFound();
@@ -84,8 +95,8 @@ namespace PererraC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(jaulas).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                repositorio.Update(jaulas);
+                await repositorio.Save();
                 return RedirectToAction("Index");
             }
             return View(jaulas);
@@ -98,7 +109,7 @@ namespace PererraC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Jaulas jaulas = await db.Jaulas.FindAsync(id);
+            var jaulas = await repositorio.GetById(id);
             if (jaulas == null)
             {
                 return HttpNotFound();
@@ -111,19 +122,18 @@ namespace PererraC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Jaulas jaulas = await db.Jaulas.FindAsync(id);
-            db.Jaulas.Remove(jaulas);
-            await db.SaveChangesAsync();
+            await repositorio.Delete(id);
+            await repositorio.Save();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }
