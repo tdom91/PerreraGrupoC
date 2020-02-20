@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace PererraC.Models
 {
     public class Clientes
     {
-        
         public int Id { get; set; }
         public string NombreCompleto { get; set; }
         public string Telefono { get; set; }
@@ -16,6 +11,5 @@ namespace PererraC.Models
         public string DNI { get; set; } 
 
         public virtual ICollection<Adopciones> Adopciones { get; set; }
-
      }
 }

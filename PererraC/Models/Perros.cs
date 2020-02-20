@@ -1,25 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace PererraC.Models
 {
     public class Perros
     {
-        
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Chip { get; set; }
         public Nullable<System.DateTime> FechaNacimiento { get; set; }
-
         
         [ForeignKey("Razas")]
         public Nullable<int> CodRazaId { get; set; }
 
-        
         [ForeignKey("Jaulas")]
         public Nullable<int> IdJaula { get; set; }
 

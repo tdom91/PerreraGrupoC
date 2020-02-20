@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace PererraC.Models
 {
@@ -26,11 +22,11 @@ namespace PererraC.Models
 
         public System.DateTime FechaEntrega { get; set; }
 
+        [ForeignKey("PerroId")]
+        public virtual Perros Perros { get; set; }
         [ForeignKey("ClienteId")]
         public virtual Clientes Clientes { get; set; }
         [ForeignKey("EmpleadoId")]
         public virtual Empleados Empleados { get; set; }
-        [ForeignKey("PerroId")]
-        public virtual Perros Perros { get; set; }
     }
 }

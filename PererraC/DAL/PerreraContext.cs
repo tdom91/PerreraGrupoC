@@ -10,10 +10,8 @@ namespace PererraC.DAL
 {
     public class PerreraContext:DbContext
     {
-
         public PerreraContext() : base("PerreraContext")
-        {
-        }
+        { }
 
         public DbSet<Clientes> Clientes { get; set; }
         public DbSet<Empleados> Empleados { get; set; }
@@ -27,6 +25,5 @@ namespace PererraC.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Entity<Adopciones>().HasKey(l => new { l.PerroId, l.ClienteId, l.EmpleadoId });
         }
-
     }
 }
