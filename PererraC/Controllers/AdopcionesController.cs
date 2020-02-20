@@ -9,17 +9,27 @@ using System.Web;
 using System.Web.Mvc;
 using PererraC.DAL;
 using PererraC.Models;
+using PererraC.Services.Repository;
 
 namespace PererraC.Controllers
 {
     public class AdopcionesController : Controller
     {
-        private PerreraContext db = new PerreraContext();
+        private IAdopcionesRepository repositorio = null;
+        public AdopcionesController()
+        {
+            this.repositorio = new AdopcionesRepository();
+        }
+
+        public AdopcionesController(IAdopcionesRepository repositorio)
+        {
+            this.repositorio = repositorio;
+        }
 
         // GET: Adopciones
         public async Task<ActionResult> Index()
         {
-            var adopciones = db.Adopciones.Include(a => a.Clientes).Include(a => a.Empleados).Include(a => a.Perros);
+            var adopciones = repositorio.Incluye();
             return View(await adopciones.ToListAsync());
         }
 
@@ -30,7 +40,7 @@ namespace PererraC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Adopciones adopciones = await db.Adopciones.FindAsync(id);
+            Adopciones adopciones = await repositorio.GetById(id);
             if (adopciones == null)
             {
                 return HttpNotFound();
@@ -41,9 +51,9 @@ namespace PererraC.Controllers
         // GET: Adopciones/Create
         public ActionResult Create()
         {
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "NombreCompleto");
-            ViewBag.EmpleadoId = new SelectList(db.Empleados, "Id", "NombreCompleto");
-            ViewBag.PerroId = new SelectList(db.Perros, "Id", "Nombre");
+            ViewBag.ClienteId = new SelectList(repositorio.ListaClientes(), "Id", "NombreCompleto");
+            ViewBag.EmpleadoId = new SelectList(repositorio.ListaEmpleados(), "Id", "NombreCompleto");
+            ViewBag.PerroId = new SelectList(repositorio.ListaPerros(), "Id", "Nombre");
             return View();
         }
 
@@ -56,14 +66,14 @@ namespace PererraC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Adopciones.Add(adopciones);
-                await db.SaveChangesAsync();
+                repositorio.Insert(adopciones);
+                await repositorio.Save();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "NombreCompleto", adopciones.ClienteId);
-            ViewBag.EmpleadoId = new SelectList(db.Empleados, "Id", "NombreCompleto", adopciones.EmpleadoId);
-            ViewBag.PerroId = new SelectList(db.Perros, "Id", "Nombre", adopciones.PerroId);
+            ViewBag.ClienteId = new SelectList(repositorio.ListaClientes(), "Id", "NombreCompleto", adopciones.ClienteId);
+            ViewBag.EmpleadoId = new SelectList(repositorio.ListaEmpleados(), "Id", "NombreCompleto", adopciones.EmpleadoId);
+            ViewBag.PerroId = new SelectList(repositorio.ListaPerros(), "Id", "Nombre", adopciones.PerroId);
             return View(adopciones);
         }
 
@@ -74,14 +84,14 @@ namespace PererraC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Adopciones adopciones = await db.Adopciones.FindAsync(id);
+            Adopciones adopciones = await repositorio.GetById(id);
             if (adopciones == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "NombreCompleto", adopciones.ClienteId);
-            ViewBag.EmpleadoId = new SelectList(db.Empleados, "Id", "NombreCompleto", adopciones.EmpleadoId);
-            ViewBag.PerroId = new SelectList(db.Perros, "Id", "Nombre", adopciones.PerroId);
+            ViewBag.ClienteId = new SelectList(repositorio.ListaClientes(), "Id", "NombreCompleto", adopciones.ClienteId);
+            ViewBag.EmpleadoId = new SelectList(repositorio.ListaEmpleados(), "Id", "NombreCompleto", adopciones.EmpleadoId);
+            ViewBag.PerroId = new SelectList(repositorio.ListaPerros(), "Id", "Nombre", adopciones.PerroId);
             return View(adopciones);
         }
 
@@ -94,13 +104,13 @@ namespace PererraC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(adopciones).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                repositorio.Update(adopciones);
+                await repositorio.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.ClienteId = new SelectList(db.Clientes, "Id", "NombreCompleto", adopciones.ClienteId);
-            ViewBag.EmpleadoId = new SelectList(db.Empleados, "Id", "NombreCompleto", adopciones.EmpleadoId);
-            ViewBag.PerroId = new SelectList(db.Perros, "Id", "Nombre", adopciones.PerroId);
+            ViewBag.ClienteId = new SelectList(repositorio.ListaClientes(), "Id", "NombreCompleto", adopciones.ClienteId);
+            ViewBag.EmpleadoId = new SelectList(repositorio.ListaEmpleados(), "Id", "NombreCompleto", adopciones.EmpleadoId);
+            ViewBag.PerroId = new SelectList(repositorio.ListaPerros(), "Id", "Nombre", adopciones.PerroId);
             return View(adopciones);
         }
 
@@ -111,7 +121,7 @@ namespace PererraC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Adopciones adopciones = await db.Adopciones.FindAsync(id);
+            Adopciones adopciones = await repositorio.GetById(id);
             if (adopciones == null)
             {
                 return HttpNotFound();
@@ -124,19 +134,18 @@ namespace PererraC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Adopciones adopciones = await db.Adopciones.FindAsync(id);
-            db.Adopciones.Remove(adopciones);
-            await db.SaveChangesAsync();
+            await repositorio.Delete(id);
+            await repositorio.Save();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

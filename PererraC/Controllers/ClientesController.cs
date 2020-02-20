@@ -9,17 +9,27 @@ using System.Web;
 using System.Web.Mvc;
 using PererraC.DAL;
 using PererraC.Models;
+using PererraC.Services.Repository;
 
 namespace PererraC.Controllers
 {
     public class ClientesController : Controller
     {
-        private PerreraContext db = new PerreraContext();
+        private IClientesRepository repositorio = null;
+        public ClientesController()
+        {
+            this.repositorio = new ClientesRepository();
+        }
+
+        public ClientesController(IClientesRepository repositorio)
+        {
+            this.repositorio = repositorio;
+        }
 
         // GET: Clientes
         public async Task<ActionResult> Index()
         {
-            return View(await db.Clientes.ToListAsync());
+            return View(await repositorio.GetAll());
         }
 
         // GET: Clientes/Details/5
@@ -29,7 +39,7 @@ namespace PererraC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Clientes clientes = await db.Clientes.FindAsync(id);
+            Clientes clientes = await repositorio.GetById(id);
             if (clientes == null)
             {
                 return HttpNotFound();
@@ -52,8 +62,8 @@ namespace PererraC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Clientes.Add(clientes);
-                await db.SaveChangesAsync();
+                repositorio.Insert(clientes);
+                await repositorio.Save();
                 return RedirectToAction("Index");
             }
 
@@ -67,7 +77,7 @@ namespace PererraC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Clientes clientes = await db.Clientes.FindAsync(id);
+            Clientes clientes = await repositorio.GetById(id);
             if (clientes == null)
             {
                 return HttpNotFound();
@@ -84,8 +94,8 @@ namespace PererraC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(clientes).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                repositorio.Update(clientes);
+                await repositorio.Save();
                 return RedirectToAction("Index");
             }
             return View(clientes);
@@ -98,7 +108,7 @@ namespace PererraC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Clientes clientes = await db.Clientes.FindAsync(id);
+            Clientes clientes = await repositorio.GetById(id);
             if (clientes == null)
             {
                 return HttpNotFound();
@@ -111,19 +121,19 @@ namespace PererraC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Clientes clientes = await db.Clientes.FindAsync(id);
-            db.Clientes.Remove(clientes);
-            await db.SaveChangesAsync();
+            //Clientes clientes = await repositorio.GetById(id);
+            await repositorio.Delete(id);
+            await repositorio.Save();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }
