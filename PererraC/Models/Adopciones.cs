@@ -10,6 +10,7 @@ namespace PererraC.Models
     public class Adopciones
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Key]
         [ForeignKey("Perros")]
