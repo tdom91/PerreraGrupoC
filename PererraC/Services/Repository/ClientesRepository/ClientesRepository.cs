@@ -7,6 +7,5 @@ using System.Web;
 namespace PererraC.Services.Repository
 {
     public class ClientesRepository: GenericRepository<Clientes>, IClientesRepository
-    {
-    }
+    { }
 }
