@@ -24,7 +24,7 @@ namespace PererraC.DAL
         {
             modelBuilder.Entity<Adopciones>().HasKey(c => c.Id);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            modelBuilder.Entity<Adopciones>().HasKey(l => new { l.PerroId, l.ClienteId, l.EmpleadoId });
+            //modelBuilder.Entity<Adopciones>().HasKey(l => new { l.PerroId, l.ClienteId, l.EmpleadoId });
         }
     }
 }

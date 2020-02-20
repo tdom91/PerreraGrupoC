@@ -1,8 +1,11 @@
-﻿using System.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using PererraC.DAL;
 using PererraC.Models;
@@ -21,14 +24,13 @@ namespace PererraC.Controllers
         }
 
         // GET: Adopciones/Details/5
-        public async Task<ActionResult> Details(int? PerroId, int? EmpleadoId, int? ClienteId)
+        public async Task<ActionResult> Details(int? id)
         {
-            if (PerroId == null && EmpleadoId == null && ClienteId == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Adopciones adopciones = await Task.Run(()=> db.Adopciones.Where(p => p.ClienteId == ClienteId &&
-                p.PerroId == PerroId && p.EmpleadoId == EmpleadoId).FirstOrDefault());
+            Adopciones adopciones = await db.Adopciones.FindAsync(id);
             if (adopciones == null)
             {
                 return HttpNotFound();
@@ -66,14 +68,13 @@ namespace PererraC.Controllers
         }
 
         // GET: Adopciones/Edit/5
-        public async Task<ActionResult> Edit(int? PerroId, int? EmpleadoId, int? ClienteId)
+        public async Task<ActionResult> Edit(int? id)
         {
-            if (PerroId == null && EmpleadoId == null && ClienteId == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Adopciones adopciones = await Task.Run(() => db.Adopciones.Where(p => p.ClienteId == ClienteId &&
-                 p.PerroId == PerroId && p.EmpleadoId == EmpleadoId).FirstOrDefault());
+            Adopciones adopciones = await db.Adopciones.FindAsync(id);
             if (adopciones == null)
             {
                 return HttpNotFound();
@@ -104,14 +105,13 @@ namespace PererraC.Controllers
         }
 
         // GET: Adopciones/Delete/5
-        public async Task<ActionResult> Delete(int? PerroId, int? EmpleadoId, int? ClienteId)
+        public async Task<ActionResult> Delete(int? id)
         {
-            if (PerroId == null && EmpleadoId == null && ClienteId == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Adopciones adopciones = await Task.Run(() => db.Adopciones.Where(p => p.ClienteId == ClienteId &&
-                 p.PerroId == PerroId && p.EmpleadoId == EmpleadoId).FirstOrDefault());
+            Adopciones adopciones = await db.Adopciones.FindAsync(id);
             if (adopciones == null)
             {
                 return HttpNotFound();
@@ -122,10 +122,9 @@ namespace PererraC.Controllers
         // POST: Adopciones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int? PerroId, int? EmpleadoId, int? ClienteId)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Adopciones adopciones = await Task.Run(()=> db.Adopciones.Where(p => p.ClienteId == ClienteId &&
-                p.PerroId == PerroId && p.EmpleadoId == EmpleadoId).FirstOrDefault());
+            Adopciones adopciones = await db.Adopciones.FindAsync(id);
             db.Adopciones.Remove(adopciones);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
