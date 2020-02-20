@@ -130,6 +130,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdopcionesController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\EmpleadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Models\Adopciones.cs" />
     <Compile Include="Models\Clientes.cs" />
     <Compile Include="Models\Empleados.cs" />
+    <Compile Include="Models\IEntity.cs" />
     <Compile Include="Models\Jaulas.cs" />
     <Compile Include="Models\Perros.cs" />
     <Compile Include="Models\Razas.cs" />

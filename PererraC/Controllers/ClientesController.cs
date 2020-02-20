@@ -13,7 +13,7 @@ using PererraC.Services.Repository;
 
 namespace PererraC.Controllers
 {
-    public class ClientesController : Controller
+    public class ClientesController : BaseController
     {
         private IClientesRepository repositorio = null;
         public ClientesController()

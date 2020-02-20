@@ -14,7 +14,7 @@ using PererraC.Services.Repository.RazasRepository;
 
 namespace PererraC.Controllers
 {
-    public class RazasController : Controller
+    public class RazasController : BaseController
     {
         private IRazasRepository repositorio = null;
         public RazasController()

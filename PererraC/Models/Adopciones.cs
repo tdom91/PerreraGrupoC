@@ -7,7 +7,7 @@ using System.Web;
 
 namespace PererraC.Models
 {
-    public class Adopciones
+    public class Adopciones:IEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

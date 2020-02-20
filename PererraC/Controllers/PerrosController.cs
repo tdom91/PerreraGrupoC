@@ -13,7 +13,7 @@ using PererraC.Services.Repository;
 
 namespace PererraC.Controllers
 {
-    public class PerrosController : Controller
+    public class PerrosController : BaseController
     {
         private IPerrosRepository repositorio = null;
         public PerrosController()

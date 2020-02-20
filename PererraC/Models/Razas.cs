@@ -2,7 +2,7 @@
 
 namespace PererraC.Models
 {
-    public class Razas
+    public class Razas:IEntity
     {
         public int Id { get; set; }
         public string Nombre { get; set; }

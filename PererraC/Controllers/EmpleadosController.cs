@@ -14,7 +14,7 @@ using PererraC.Services.Repository.EmpleadosRepository;
 
 namespace PererraC.Controllers
 {
-    public class EmpleadosController : Controller
+    public class EmpleadosController : BaseController
     {
         private IEmpleadosRepository repositorio = null;
         public EmpleadosController()
