@@ -13,7 +13,7 @@ using PererraC.Services.Repository;
 
 namespace PererraC.Controllers
 {
-    public class PerrosController : Controller
+    public class PerrosController : BaseController
     {
         private IPerrosRepository repositorio = null;
         public PerrosController()
@@ -29,8 +29,7 @@ namespace PererraC.Controllers
         // GET: Perros
         public async Task<ActionResult> Index()
         {
-            var perros = repositorio.Incluye();
-            return View(await perros.ToListAsync());
+            return View(await repositorio.GetAll());
         }
 
         // GET: Perros/Details/5
@@ -49,10 +48,10 @@ namespace PererraC.Controllers
         }
 
         // GET: Perros/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            ViewBag.IdJaula = new SelectList(repositorio.ListaJaulas(), "Id", "NombreJaula");
-            ViewBag.CodRazaId = new SelectList(repositorio.ListaRazas(), "Id", "Nombre");
+            ViewBag.IdJaula = new SelectList(await repositorio.ListaJaulas(), "Id", "NombreJaula");
+            ViewBag.CodRazaId = new SelectList(await repositorio.ListaRazas(), "Id", "Nombre");
             return View();
         }
 
@@ -70,8 +69,8 @@ namespace PererraC.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IdJaula = new SelectList(repositorio.ListaJaulas(), "Id", "NombreJaula", perros.IdJaula);
-            ViewBag.CodRazaId = new SelectList(repositorio.ListaRazas(), "Id", "Nombre", perros.CodRazaId);
+            ViewBag.IdJaula = new SelectList(await repositorio.ListaJaulas(), "Id", "NombreJaula", perros.IdJaula);
+            ViewBag.CodRazaId = new SelectList(await repositorio.ListaRazas(), "Id", "Nombre", perros.CodRazaId);
             return View(perros);
         }
 
@@ -87,8 +86,8 @@ namespace PererraC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IdJaula = new SelectList(repositorio.ListaJaulas(), "Id", "NombreJaula", perros.IdJaula);
-            ViewBag.CodRazaId = new SelectList(repositorio.ListaRazas(), "Id", "Nombre", perros.CodRazaId);
+            ViewBag.IdJaula = new SelectList(await repositorio.ListaJaulas(), "Id", "NombreJaula", perros.IdJaula);
+            ViewBag.CodRazaId = new SelectList(await repositorio.ListaRazas(), "Id", "Nombre", perros.CodRazaId);
             return View(perros);
         }
 
@@ -105,8 +104,8 @@ namespace PererraC.Controllers
                 await repositorio.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.IdJaula = new SelectList(repositorio.ListaJaulas(), "Id", "NombreJaula", perros.IdJaula);
-            ViewBag.CodRazaId = new SelectList(repositorio.ListaRazas(), "Id", "Nombre", perros.CodRazaId);
+            ViewBag.IdJaula = new SelectList(await repositorio.ListaJaulas(), "Id", "NombreJaula", perros.IdJaula);
+            ViewBag.CodRazaId = new SelectList(await repositorio.ListaRazas(), "Id", "Nombre", perros.CodRazaId);
             return View(perros);
         }
 

@@ -6,24 +6,11 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 
 namespace PererraC.Services.Repository
 {
     public class PerrosRepository : GenericRepository<Perros>, IPerrosRepository
     {
-        public IQueryable<Perros> Incluye()
-        {
-            return _context.Perros.Include(p => p.Jaulas).Include(p => p.Razas);
-        }
-
-        public DbSet<Jaulas> ListaJaulas()
-        {
-            return _context.Jaulas; 
-        }
-
-        public DbSet<Razas> ListaRazas()
-        {
-            return _context.Razas;
-        }
     }
 }

@@ -14,9 +14,10 @@ using PererraC.Services.Repository.JaulasRepository;
 
 namespace PererraC.Controllers
 {
-    public class JaulasController : Controller
+    public class JaulasController : BaseController
     {
         private IJaulasRepository repositorio = null;
+
         public JaulasController()
         {
             this.repositorio = new JaulasRepository();

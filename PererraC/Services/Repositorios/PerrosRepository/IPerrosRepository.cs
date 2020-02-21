@@ -10,10 +10,6 @@ namespace PererraC.Services.Repository
 {
     public interface IPerrosRepository: IGenericRepository<Perros>
     {
-
-        IQueryable<Perros> Incluye();
-        DbSet<Jaulas> ListaJaulas();
-        DbSet<Razas> ListaRazas();
     }
 
 }

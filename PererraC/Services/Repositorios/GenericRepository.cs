@@ -1,4 +1,5 @@
 ﻿using PererraC.DAL;
+using PererraC.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,11 +9,10 @@ using System.Web;
 
 namespace PererraC.Services.Repository
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         public PerreraContext _context = null;
         public DbSet<T> table = null;
-
 
         public GenericRepository()
         {
@@ -25,34 +25,68 @@ namespace PererraC.Services.Repository
             this._context = context;
             table = _context.Set<T>();
         }
-        public async Task<IEnumerable<T>> GetAll()
+
+        public virtual async Task<IEnumerable<T>> GetAll()
         {
             return await table.ToListAsync();
         }
-        public async Task<T> GetById(object id)
+
+        public virtual async Task<T> GetById(object id)
         {
             return await table.FindAsync(id);
         }
-        public void  Insert(T obj)
+
+        public virtual void Insert(T obj)
         {
            table.Add(obj);
         }
-        public void Update(T obj)
+
+        public virtual void Update(T obj)
         {
             table.Attach(obj);
             _context.Entry(obj).State = EntityState.Modified;
         }
-        public async Task Delete(object id)
+
+        public virtual async Task Delete(object id)
         {
             T existing = await table.FindAsync(id);
             table.Remove(existing);
         }
-        public async Task Save()
+
+        public virtual async Task Save()
         {
-           await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
+        public virtual async Task<IEnumerable<Clientes>> ListaClientes()
+        {
+            return await _context.Clientes.ToListAsync();
+        }
 
+        public virtual async Task<IEnumerable<Empleados>> ListaEmpleados()
+        {
+            return await _context.Empleados.ToListAsync();
+        }
+
+        public virtual async Task<IEnumerable<Perros>> ListaPerros()
+        {
+            return await _context.Perros.ToListAsync();
+        }
+
+        public virtual async Task<IEnumerable<Jaulas>> ListaJaulas()
+        {
+            return await _context.Jaulas.ToListAsync();
+        }
+
+        public virtual async Task<IEnumerable<Razas>> ListaRazas()
+        {
+            return await _context.Razas.ToListAsync();
+        }
+
+        public virtual async Task<IEnumerable<Adopciones>> ListaAdopciones()
+        {
+            return await _context.Adopciones.ToListAsync();
+        }
     }
 }
     

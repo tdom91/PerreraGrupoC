@@ -13,9 +13,10 @@ using PererraC.Services.Repository;
 
 namespace PererraC.Controllers
 {
-    public class AdopcionesController : Controller
+    public class AdopcionesController : BaseController
     {
         private IAdopcionesRepository repositorio = null;
+
         public AdopcionesController()
         {
             this.repositorio = new AdopcionesRepository();
@@ -29,8 +30,7 @@ namespace PererraC.Controllers
         // GET: Adopciones
         public async Task<ActionResult> Index()
         {
-            var adopciones = repositorio.Incluye();
-            return View(await adopciones.ToListAsync());
+            return View(await repositorio.GetAll());
         }
 
         // GET: Adopciones/Details/5
@@ -49,11 +49,11 @@ namespace PererraC.Controllers
         }
 
         // GET: Adopciones/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            ViewBag.ClienteId = new SelectList(repositorio.ListaClientes(), "Id", "NombreCompleto");
-            ViewBag.EmpleadoId = new SelectList(repositorio.ListaEmpleados(), "Id", "NombreCompleto");
-            ViewBag.PerroId = new SelectList(repositorio.ListaPerros(), "Id", "Nombre");
+            ViewBag.ClienteId = new SelectList(await repositorio.ListaClientes(), "Id", "NombreCompleto");
+            ViewBag.EmpleadoId = new SelectList(await repositorio.ListaEmpleados(), "Id", "NombreCompleto");
+            ViewBag.PerroId = new SelectList(await repositorio.ListaPerros(), "Id", "Nombre");
             return View();
         }
 
@@ -71,9 +71,9 @@ namespace PererraC.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ClienteId = new SelectList(repositorio.ListaClientes(), "Id", "NombreCompleto", adopciones.ClienteId);
-            ViewBag.EmpleadoId = new SelectList(repositorio.ListaEmpleados(), "Id", "NombreCompleto", adopciones.EmpleadoId);
-            ViewBag.PerroId = new SelectList(repositorio.ListaPerros(), "Id", "Nombre", adopciones.PerroId);
+            ViewBag.ClienteId = new SelectList(await repositorio.ListaClientes(), "Id", "NombreCompleto", adopciones.ClienteId);
+            ViewBag.EmpleadoId = new SelectList(await repositorio.ListaEmpleados(), "Id", "NombreCompleto", adopciones.EmpleadoId);
+            ViewBag.PerroId = new SelectList(await repositorio.ListaPerros(), "Id", "Nombre", adopciones.PerroId);
             return View(adopciones);
         }
 
@@ -89,9 +89,9 @@ namespace PererraC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ClienteId = new SelectList(repositorio.ListaClientes(), "Id", "NombreCompleto", adopciones.ClienteId);
-            ViewBag.EmpleadoId = new SelectList(repositorio.ListaEmpleados(), "Id", "NombreCompleto", adopciones.EmpleadoId);
-            ViewBag.PerroId = new SelectList(repositorio.ListaPerros(), "Id", "Nombre", adopciones.PerroId);
+            ViewBag.ClienteId = new SelectList(await repositorio.ListaClientes(), "Id", "NombreCompleto", adopciones.ClienteId);
+            ViewBag.EmpleadoId = new SelectList(await repositorio.ListaEmpleados(), "Id", "NombreCompleto", adopciones.EmpleadoId);
+            ViewBag.PerroId = new SelectList(await repositorio.ListaPerros(), "Id", "Nombre", adopciones.PerroId);
             return View(adopciones);
         }
 
@@ -108,9 +108,9 @@ namespace PererraC.Controllers
                 await repositorio.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.ClienteId = new SelectList(repositorio.ListaClientes(), "Id", "NombreCompleto", adopciones.ClienteId);
-            ViewBag.EmpleadoId = new SelectList(repositorio.ListaEmpleados(), "Id", "NombreCompleto", adopciones.EmpleadoId);
-            ViewBag.PerroId = new SelectList(repositorio.ListaPerros(), "Id", "Nombre", adopciones.PerroId);
+            ViewBag.ClienteId = new SelectList(await repositorio.ListaClientes(), "Id", "NombreCompleto", adopciones.ClienteId);
+            ViewBag.EmpleadoId = new SelectList(await repositorio.ListaEmpleados(), "Id", "NombreCompleto", adopciones.EmpleadoId);
+            ViewBag.PerroId = new SelectList(await repositorio.ListaPerros(), "Id", "Nombre", adopciones.PerroId);
             return View(adopciones);
         }
 

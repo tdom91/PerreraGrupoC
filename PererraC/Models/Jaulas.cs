@@ -2,7 +2,7 @@
 
 namespace PererraC.Models
 {
-    public class Jaulas
+    public class Jaulas:IEntity
     {
         public int Id { get; set; }
         public string NombreJaula { get; set; }

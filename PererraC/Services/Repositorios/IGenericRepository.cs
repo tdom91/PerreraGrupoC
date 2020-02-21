@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PererraC.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,12 @@ namespace PererraC.Services.Repository
         void Update(T obj);
         Task Delete(object id);
         Task Save();
-       
+
+        Task<IEnumerable<Clientes>> ListaClientes();
+        Task<IEnumerable<Empleados>> ListaEmpleados();
+        Task<IEnumerable<Perros>> ListaPerros();
+        Task<IEnumerable<Jaulas>> ListaJaulas();
+        Task<IEnumerable<Razas>> ListaRazas();
+        Task<IEnumerable<Adopciones>> ListaAdopciones();
     }
 }
