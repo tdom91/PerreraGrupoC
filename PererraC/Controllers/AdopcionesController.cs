@@ -16,6 +16,7 @@ namespace PererraC.Controllers
     public class AdopcionesController : BaseController
     {
         private IAdopcionesRepository repositorio = null;
+
         public AdopcionesController()
         {
             this.repositorio = new AdopcionesRepository();

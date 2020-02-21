@@ -13,18 +13,18 @@ namespace PererraC.Controllers
    public abstract class BaseController:Controller 
 
     {
-        protected GenericRepository<IEntity> repositorio;
+        //protected GenericRepository<IEntity> repositorio;
         
 
-        protected BaseController(GenericRepository<IEntity> repositorio)
-        {
-            this.repositorio = repositorio;
-        }
+        //protected BaseController(GenericRepository<IEntity> repositorio)
+        //{
+        //    this.repositorio = repositorio;
+        //}
 
-        protected BaseController()
-        {
+        //protected BaseController()
+        //{
             
-        }
+        //}
 
         protected override void OnException(ExceptionContext filterContext)
         {
