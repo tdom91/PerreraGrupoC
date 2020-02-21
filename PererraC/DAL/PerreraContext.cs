@@ -26,5 +26,7 @@ namespace PererraC.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             //modelBuilder.Entity<Adopciones>().HasKey(l => new { l.PerroId, l.ClienteId, l.EmpleadoId });
         }
+
+        public System.Data.Entity.DbSet<PererraC.Models.ViewModels.JaulaConMasPerros> JaulaConMasPerros { get; set; }
     }
 }

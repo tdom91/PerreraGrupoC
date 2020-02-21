@@ -10,6 +10,7 @@ namespace PererraC.Services.Repository
 {
     public interface IPerrosRepository: IGenericRepository<Perros>
     {
+        IQueryable<Jaulas> JaulaConMasPerros();
     }
 
 }

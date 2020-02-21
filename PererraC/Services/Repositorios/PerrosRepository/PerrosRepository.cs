@@ -12,5 +12,13 @@ namespace PererraC.Services.Repository
 {
     public class PerrosRepository : GenericRepository<Perros>, IPerrosRepository
     {
+        public IQueryable<Jaulas> JaulaConMasPerros()
+        {
+            var query = from jaula in _context.Jaulas
+                        orderby jaula.Perros.Count
+                        select jaula;
+
+            return query;
+        }
     }
 }

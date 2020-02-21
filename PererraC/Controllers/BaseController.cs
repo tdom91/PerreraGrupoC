@@ -14,7 +14,7 @@ namespace PererraC.Controllers
 
     {
         //protected GenericRepository<IEntity> repositorio;
-        
+
 
         //protected BaseController(GenericRepository<IEntity> repositorio)
         //{
@@ -23,7 +23,7 @@ namespace PererraC.Controllers
 
         //protected BaseController()
         //{
-            
+
         //}
 
         protected override void OnException(ExceptionContext filterContext)
@@ -34,7 +34,7 @@ namespace PererraC.Controllers
             }
             filterContext.Result = new ViewResult
             {
-                ViewName = "~/Views/Shared/Error.aspx"
+                ViewName = "~/Views/Shared/Error.csthml"
             };
             filterContext.ExceptionHandled = true;
         }
