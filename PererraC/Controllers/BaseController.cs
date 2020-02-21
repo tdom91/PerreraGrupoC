@@ -26,6 +26,22 @@ namespace PererraC.Controllers
             
         }
 
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            if (filterContext.ExceptionHandled)
+            {
+                return;
+            }
+            filterContext.Result = new ViewResult
+            {
+                ViewName = "~/Views/Shared/Error.aspx"
+            };
+            filterContext.ExceptionHandled = true;
+        }
+
+
+
+
 
         //// GET: Base Repository
         //public virtual async Task<ActionResult> BaseIndex()
@@ -127,25 +143,14 @@ namespace PererraC.Controllers
         //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> BaseDeleteConfirmed(int id)
         //{
-            
+
         //    await repositorio.Delete(id);
         //    await repositorio.Save();
         //    return RedirectToAction("Index");
-           
+
         //}
 
-        protected override void OnException(ExceptionContext filterContext)
-        {
-            if (filterContext.ExceptionHandled)
-            {
-                return;
-            }
-            filterContext.Result = new ViewResult
-            {
-                ViewName = "~/Views/Shared/Error.aspx"
-            };
-            filterContext.ExceptionHandled = true;
-        }
+
 
     }
 }
